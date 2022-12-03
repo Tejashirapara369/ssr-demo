@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <img
+        class="profile-details-img"
+        [src]="'assets/img/' + productDetails.imgUrl"
+        [alt]="productDetails.productName"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <h1>{{ productDetails.productName }}</h1>
+      <p>{{ productDetails.description }}</p>
+    </div>
+    <div class="col-md-4 d-flex justify-content-center">
+        <h4>Price: 500Rs.</h4>
+    </div>
+  </div>
+</div>

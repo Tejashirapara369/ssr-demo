@@ -1,0 +1,15 @@
+.product-img {
+  width: 100%;
+  object-fit: cover;
+  height: -webkit-fill-available;
+}
+
+.product-card {
+  margin-bottom: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  .product-content {
+    padding: 15px;
+  }
+}
