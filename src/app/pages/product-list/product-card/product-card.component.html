@@ -1,0 +1,20 @@
+<div class="product-card" (click)="navigateToProduct()">
+    <div class="img-block">
+      <img
+        [src]="'assets/img/' + product.imgUrl"
+        loading="lazy"
+        class="product-img"
+        [alt]="product.productName"
+      />
+    </div>
+    <div class="product-content">
+      <h6>{{ product.productName }}</h6>
+      <p [innerHTML]="product.description | truncate : 90"></p>
+    </div>
+
+    <!-- <div class="action-block">
+      <i class="fa-solid fa-cart-plus"></i>
+      <i class="fa-regular fa-heart"></i>
+      <i class="fa-solid fa-share-nodes"></i>
+    </div> -->
+  </div>
