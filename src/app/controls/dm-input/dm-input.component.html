@@ -1,0 +1,12 @@
+<div class="d-flex flex-column">
+  <mat-label floatLabel="never">{{ label }}</mat-label>
+  <mat-form-field appearance="fill" floatLabel="never">
+    <input
+      matInput
+      [placeholder]="placeholder"
+      [ngModel]="value"
+      (ngModelChange)="onChange($event)"
+      [disabled]="disabled"
+    />
+  </mat-form-field>
+</div>

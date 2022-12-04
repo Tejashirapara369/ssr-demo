@@ -1,0 +1,34 @@
+<div class="d-flex flex-column">
+  <mat-label floatLabel="never">{{ label }}</mat-label>
+  <mat-form-field appearance="fill" *ngIf="!enableSearch">
+    <mat-select
+      [(value)]="value"
+      (selectionChange)="onChange($event.value)"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+    >
+      <mat-option *ngFor="let item of options" [value]="item.value">{{
+        item.label
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill" *ngIf="enableSearch">
+    <input
+      type="text"
+      matInput
+      [formControl]="formControl"
+      [value]="value"
+      [matAutocomplete]="auto"
+      [placeholder]="placeholder"
+    />
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onSelect($event)">
+      <mat-option 
+        *ngFor="let option of filteredOptions | async"
+        [value]="option.value"
+        [disabled]="option.label === value"
+      >
+        {{ option.label }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

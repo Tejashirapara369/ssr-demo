@@ -1,4 +1,39 @@
 <div class="container">
+  <div class="row my-5" [formGroup]="form">
+    <div class="col-4">
+      <dm-input
+        placeholder="Enter your name"
+        label="Candidate name"
+        formControlName="name"
+      ></dm-input>
+    </div>
+    <div class="col-4">
+      <dm-simple-dropdown
+        placeholder="Select your city"
+        label="City"
+        formControlName="city"
+        [options]="cityOptions"
+      ></dm-simple-dropdown>
+    </div>
+    <div class="col-4">
+      <dm-simple-dropdown
+        placeholder="Select your state"
+        label="state"
+        formControlName="state"
+        [options]="stateOption"
+        [enableSearch]="true"
+      ></dm-simple-dropdown>
+    </div>
+    <div class="col-4 mt-3">
+      <dm-input
+        placeholder="Enter your country"
+        label="country"
+        formControlName="country"
+      ></dm-input>
+    </div>
+    <button class="btn btn-primary mt-5" (click)="onSubmit()">Submit</button>
+  </div>
+
   <div class="row">
     <div class="col-md-12">
       <img
@@ -14,7 +49,7 @@
       <p>{{ productDetails.description }}</p>
     </div>
     <div class="col-md-4 d-flex justify-content-center">
-        <h4>Price: 500Rs.</h4>
+      <h4>Price: 500Rs.</h4>
     </div>
   </div>
 </div>
