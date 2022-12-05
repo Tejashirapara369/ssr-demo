@@ -4,7 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 @Component({
   selector: 'dm-input',
   templateUrl: './dm-input.component.html',
-  styleUrls: ['./dm-input.component.scss'],
+  styleUrls: ['../dm-controls.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

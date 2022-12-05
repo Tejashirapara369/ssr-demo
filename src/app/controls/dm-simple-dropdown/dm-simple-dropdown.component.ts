@@ -17,7 +17,7 @@ type Option = { value: string; label: string };
 @Component({
   selector: 'dm-simple-dropdown',
   templateUrl: './dm-simple-dropdown.component.html',
-  styleUrls: ['./dm-simple-dropdown.component.scss'],
+  styleUrls: ['../dm-controls.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
