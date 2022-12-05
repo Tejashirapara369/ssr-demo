@@ -25,11 +25,12 @@
       ></dm-simple-dropdown>
     </div>
     <div class="col-4 mt-3">
-      <dm-input
-        placeholder="Enter your country"
+      <dm-simple-dropdown
+        placeholder="Select your country"
         label="country"
         formControlName="country"
-      ></dm-input>
+        [enableSearch]="true"
+      ></dm-simple-dropdown>
     </div>
     <button class="btn btn-primary mt-5" (click)="onSubmit()">Submit</button>
   </div>

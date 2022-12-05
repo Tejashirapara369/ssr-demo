@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { ApiService } from 'src/app/shared/services/api.service';
 import { MetaService } from 'src/app/shared/services/meta.service';
 
 @Component({
@@ -22,7 +25,7 @@ export class ProductDetailsComponent implements OnInit {
     { label: 'Ahmedabad', value: '01' },
     { label: 'Rajkot', value: '03' },
   ];
-  
+
   stateOption = [
     { label: 'Gujarat', value: 'GJ' },
     { label: 'Asam', value: 'AS' },
@@ -34,19 +37,27 @@ export class ProductDetailsComponent implements OnInit {
     { label: 'Madhya-pradesh', value: 'MP' },
     { label: 'Bihar', value: 'BH' },
     { label: 'Maharastra', value: 'MH' },
+  ];
 
-  ]
+  countryOption$!: Observable<{ label: string; value: string }[]>;
 
-  constructor(private route: ActivatedRoute, private meta: MetaService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private apiService: ApiService
+  ) {}
 
   ngOnInit(): void {
     this.route.data.subscribe((data: any) => {
       this.productDetails = data['product'];
     });
 
-    // setTimeout(() => {
-    //   this.form.get('name')?.disable();
-    // }, 50000);
+    this.form
+      .get('country')
+      ?.valueChanges.pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((value) => {
+        console.log('value', value)
+        this.countryOption$ = this.apiService.searchCountry(value).pipe(tap(v => console.log('v', v)));
+      });
   }
 
   onSubmit() {

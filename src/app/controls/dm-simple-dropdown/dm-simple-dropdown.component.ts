@@ -1,4 +1,3 @@
-import { ChangeDetectionStrategy } from '@angular/compiler';
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -6,7 +5,12 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  startWith,
+} from 'rxjs/operators';
 
 type Option = { value: string; label: string };
 
@@ -33,22 +37,22 @@ export class DmSimpleDropdownComponent implements OnInit, ControlValueAccessor {
   // searchable dropdown variable
   formControl: FormControl = new FormControl();
   @Input() enableSearch: boolean = false;
-  filteredOptions!: Observable<Option[]>;
 
   onTouch!: () => void;
   onChange!: (value: any) => void;
+  filteredOptions: Observable<Option[]> = this.formControl.valueChanges.pipe(
+    debounceTime(500),
+    distinctUntilChanged(),
+    startWith(''),
+    map((value) => {
+      if (!value) this.value = null;
+      return value ? this._filter(value as string) : this.options.slice();
+    })
+  );
 
   constructor() {}
 
-  ngOnInit(): void {
-    this.filteredOptions = this.formControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => {
-        if (!value) this.value = null;
-        return value ? this._filter(value as string) : this.options.slice();
-      })
-    );
-  }
+  ngOnInit(): void {}
 
   onSelect(event: any) {
     const currentValue = event?.option?.value;
@@ -63,7 +67,7 @@ export class DmSimpleDropdownComponent implements OnInit, ControlValueAccessor {
   }
 
   displayFn(option: Option): string {
-    return option?.label ? option.label : '';
+    return option?.label;
   }
 
   private _filter(name: string): Option[] {
